@@ -11,6 +11,37 @@ a {
   text-decoration: none;
 }
 
+a, h1, h2, h3, h4, h5, h6, p, input {
+  font-family: 'Google Sans';
+}
+
+
 * {
   box-sizing: border-box;
+}
+
+
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('./../../public/Fonts/GoogleSans-Regular.eot');
+  src: local('Google Sans Regular'), local('GoogleSans-Regular'),
+      url('./../../public/Fonts/GoogleSans-Regular.eot?#iefix') format('embedded-opentype'),
+      url('./../../public/Fonts/GoogleSans-Regular.woff2') format('woff2'),
+      url('./../../public/Fonts/GoogleSans-Regular.woff') format('woff'),
+      url('./../../public/Fonts/GoogleSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('./../../public/Fonts/GoogleSans-Bold.eot');
+  src: local('Google Sans Bold'), local('GoogleSans-Bold'),
+      url('./../../public/Fonts/GoogleSans-Bold.eot?#iefix') format('embedded-opentype'),
+      url('./../../public/Fonts/GoogleSans-Bold.woff2') format('woff2'),
+      url('./../../public/Fonts/GoogleSans-Bold.woff') format('woff'),
+      url('./../../public/Fonts/GoogleSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
 }
