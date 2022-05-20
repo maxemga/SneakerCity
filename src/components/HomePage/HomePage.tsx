@@ -3,19 +3,26 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import { useHttp } from '../../hooks/useHttp'
 import { IProduct, IProductState } from '../../types/types';
-import HomePageContainer from './HomePageContainer'
+
+
+import ModalProduct from '../Modal/ModalProduct';
+import HomeContainers from './HomeContainers';
+
+
 
 const HomePage: React.FC = () => {
-    const { request, products } = useHttp();
-    // const products = useSelector((state: any) => state.productsReducer.products)
+
+    const modal = useSelector((state: any) => state.modalReducer);
+    const { request, products, isLoading } = useHttp();
 
     useEffect(() => {
         request('https://fakestoreapi.com/products');    
-        console.log(products)   
+
     }, [])
 
 
     return(
+        <>
         <HomeBlock>
             <Wrapper>
                <HomeContent>
@@ -24,15 +31,14 @@ const HomePage: React.FC = () => {
                     </HomeFilter>
                     <HomeProducts>
                         <HomeProductsTitle>The new arrivals</HomeProductsTitle>
-                        <HomeProductsContainers>
-                            {products && products.map((element: IProduct) => {
-                                return <HomePageContainer key={element.id} {...element}/>
-                            })}
-                        </HomeProductsContainers>
+                        <HomeContainers isLoading={isLoading} products={products}/>
                     </HomeProducts>
                </HomeContent>
             </Wrapper>
         </HomeBlock>
+        {modal.isOpen ? <ModalProduct/> : null}
+        </>
+
     )
 }
 
@@ -43,6 +49,8 @@ const HomeContent = styled.div`
     display: flex;
     justify-content: space-between;
     column-gap: 100px;
+    // display: grid;
+    // grid-template-columns: 1f 5fr;
     margin-top: 30px
 `   
 
@@ -59,16 +67,9 @@ const Wrapper = styled.div`
     width: 90%;
 `   
 const HomeProductsTitle = styled.h1`
+
     font-size: 30px;
     font-weight: bold;
-`
-const HomeProductsContainers = styled.div`
-    margin-top: 30px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    // grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-    grid-gap: 130px 30px;
-    
 `
 
 

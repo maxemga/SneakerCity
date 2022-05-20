@@ -9,5 +9,20 @@ export interface IProduct {
 }
 
 export interface IProductState {
-    products: IProduct[]
+    products: IProduct[],
+    currentId: number
+}
+
+export interface ISizes {
+    id: number,
+    title: string
+}
+
+export interface IHomeContainers {
+    products: IProduct[],
+    isLoading: boolean
+}
+
+export interface IModalState {
+    isOpen: boolean
 }

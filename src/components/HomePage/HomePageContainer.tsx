@@ -1,12 +1,22 @@
 import styled from 'styled-components'
 import Image from 'next/image'
 import { IProduct } from '../../types/types'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { showModal } from '../../store/reducers/modalReducer'
+import { changeId } from '../../store/reducers/productsReducer'
 
 const HomePageContainer: React.FC<IProduct> = (props: IProduct) => {
+    const dispatch = useDispatch();
+
+
+    const changeModal = () => {
+        dispatch(changeId(props.id));
+        dispatch(showModal());
+    }
 
     return(
-        <HomeProductsContainer>
+        <HomeProductsContainer onClick={() => changeModal()}>
             <HomeProductsContainerImage>
                 <Image
                     src={props.image}
@@ -19,16 +29,19 @@ const HomePageContainer: React.FC<IProduct> = (props: IProduct) => {
             <HomeProductsContainerInfo>
 
                 <HomeProductsContainerTitle>{props.title}</HomeProductsContainerTitle>
-                <HomeProductsContainerPrice>{props.price}$</HomeProductsContainerPrice>
+                <HomeProductsContainerPrice>{props.price}</HomeProductsContainerPrice>
 
             </HomeProductsContainerInfo>
         </HomeProductsContainer>
+        
     )
 }
 
 const HomeProductsContainer = styled.div`
-   cursor: pointer;
-    height: 500px;
+    cursor: pointer;
+    background-color: white;
+    box-sizing: content-box;  
+    height: 400px;
  `
 
 const HomeProductsContainerImage = styled.div`
@@ -37,10 +50,12 @@ const HomeProductsContainerImage = styled.div`
 `
 
 const HomeProductsContainerInfo = styled.div`
+
 `
 
 const HomeProductsContainerTitle = styled.h2`
     margin-top: 30px;
+    text-align: left;
     font-size: 20px;
 `
 
@@ -48,6 +63,7 @@ const HomeProductsContainerPrice = styled.p`
     margin-bottom: 15px;
     color: rgba(0, 0, 0, 0.65);
     font-weight: bold;
+    text-align: left;
 `
 
 export default HomePageContainer;

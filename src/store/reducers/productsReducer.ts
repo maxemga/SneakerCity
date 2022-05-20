@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IProductState } from "../../types/types";
 
 const productsState: IProductState = {
-    products: []
+    products: [],
+    currentId: 0
 }
 
 const productsReducer = createSlice({
@@ -10,11 +11,14 @@ const productsReducer = createSlice({
     initialState: productsState,
     reducers: {
         addProducts (state, action) {
-            state.products.push(action.payload);
+            state.products = action.payload;
+        },
+        changeId (state, action) {
+            state.currentId = action.payload
         }
     }
 })
 
-export const { addProducts } = productsReducer.actions;
+export const { addProducts, changeId } = productsReducer.actions;
 
 export default productsReducer.reducer;

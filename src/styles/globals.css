@@ -11,7 +11,7 @@ a {
   text-decoration: none;
 }
 
-a, h1, h2, h3, h4, h5, h6, p, input {
+a, h1, h2, h3, h4, h5, h6, p, input, button {
   font-family: 'Google Sans';
 }
 
@@ -44,4 +44,11 @@ a, h1, h2, h3, h4, h5, h6, p, input {
       url('./../../public/Fonts/GoogleSans-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
+}
+
+.loader {
+  position: absolute;
+  left: 40%;
+  top: 400px;
+  
 }
