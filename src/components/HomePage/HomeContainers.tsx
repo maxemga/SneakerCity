@@ -6,6 +6,8 @@ import HomePageContainer from './HomePageContainer'
 
 const HomeContainers: React.FC<IHomeContainers>= (props) => {
     return(
+        <>
+        <HomeProductsTitle>The new arrivals</HomeProductsTitle>
         <HomeProductsContainers>
             {props.products && props.products.map((element: IProduct) => {
                 return <HomePageContainer key={element.id} {...element}/>
@@ -14,8 +16,15 @@ const HomeContainers: React.FC<IHomeContainers>= (props) => {
             {/* <ModalProduct/> */}
 
         </HomeProductsContainers>
+        </>
     )
 }
+
+const HomeProductsTitle = styled.h1`
+
+    font-size: 30px;
+    font-weight: bold;
+`
 
 
 const HomeProductsContainers = styled.div`

@@ -15,7 +15,7 @@ export interface IProductState {
 
 export interface ISizes {
     id: number,
-    title: string
+    title: number
 }
 
 export interface IHomeContainers {

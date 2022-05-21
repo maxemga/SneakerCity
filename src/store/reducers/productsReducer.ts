@@ -3,7 +3,7 @@ import { IProductState } from "../../types/types";
 
 const productsState: IProductState = {
     products: [],
-    currentId: 0
+    currentId: 0,
 }
 
 const productsReducer = createSlice({

@@ -1,31 +1,32 @@
 import styled from 'styled-components'
 import Image from 'next/image'
 import { ISizes } from '../../types/types'
-import { useDispatch, useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { Like } from '../../../public/images/Modal/modalIcon'
 import { Minus } from '../../../public/images/Modal/minus'
 import { Plus } from '../../../public/images/Modal/plus'
+import Row from '../../../public/images/Modal/modalRow'
 
 
 const ModalProduct: React.FC= () => {
     const [count, setCount] = useState<number>(1);
     const [isLike, setIsLike] = useState<boolean>(false);
-    const [isDiscriptOpen, setIsDiscriptOpen] = useState<boolean>(false);
-    const productsSelect = useSelector((state: any) => state.productsReducer);
+    const [isDiscriptOpen, setIsDiscriptOpen] = useState<boolean>(true);
+    const products = useSelector((state: any) => state.productsReducer.products);
+    const id = useSelector((state: any) => state.productsReducer.currentId);
 
     const sizes: ISizes[] = [
-        {id: 1, title: '32'},
-        {id: 2, title: '33'},
-        {id: 3, title: '34'},
-        {id: 4, title: '35'},
-        {id: 5, title: '36'},
-        {id: 6, title: '37'},
-        {id: 7, title: '38'},
-        {id: 8, title: '39'},
-        {id: 9, title: '40'},
+        {id: 1, title: 32},
+        {id: 2, title: 33},
+        {id: 3, title: 34},
+        {id: 4, title: 35},
+        {id: 5, title: 36},
+        {id: 6, title: 37},
+        {id: 7, title: 38},
+        {id: 8, title: 39},
+        {id: 9, title: 40},
     ]
-
 
     return(
         
@@ -33,14 +34,14 @@ const ModalProduct: React.FC= () => {
             <ModalContent>
                 <ModalImage>
                     <ModalImageTitle>
-                        <h2>{productsSelect.products[productsSelect.currentId].title}</h2>
+                        <h2>{products[id].title}</h2>
                         
                         <Like setIsLike={setIsLike} isLike={isLike}/>
                     </ModalImageTitle>
-                    <ModalImagePrice>{productsSelect.products[productsSelect.currentId].price}</ModalImagePrice>
+                    <ModalImagePrice>{products[id].price}$</ModalImagePrice>
                     <ModalImageIcon>
-                        <Image
-                            src={productsSelect.products[productsSelect.currentId].image}
+                        <Image                      
+                            src={products[id].image}
                             alt="Picture of the author"
                             width={500}
                             height={500}
@@ -53,16 +54,9 @@ const ModalProduct: React.FC= () => {
                     <ModalInfoDescription>
                         <div onClick={() => setIsDiscriptOpen(!isDiscriptOpen)}>
                             <h3>Description</h3>
-                            <Image
-                            src={require('./../../../public/images/Modal/modalRowDown.png')}
-                            alt="Picture of the author"
-                            width={15}
-                            height={15}
-                            objectFit={'contain'}
-                            />
-                        
+                            <Row isDiscriptOpen={isDiscriptOpen}/>
                         </div>
-                        {isDiscriptOpen ? <p>{productsSelect.products[productsSelect.currentId].description}</p> : null}
+                        {isDiscriptOpen ? <p>{products[id].description}</p> : null}
                     </ModalInfoDescription>
                     <ModalInfoSize>
                         <h3>Select size</h3>
@@ -164,7 +158,7 @@ const ModalInfoDescription = styled.div`
 `
 
 const ModalInfoSize = styled.div`
-
+    padding-top: 15px;
 `
 
 const ModalInfoSizeElements = styled.div`
@@ -177,11 +171,16 @@ const ModalInfoSizeElement = styled.div`
     cursor: pointer;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.15);
+    transition: 0.3s;
     p {
        
         color: rgba(0, 0, 0, 0.65);
         font-size: 18px;
         text-align: center;
+    }
+    &:hover {
+        opacity: 0.5;
+        transition: 0.3s;
     }
 `
 
@@ -200,6 +199,7 @@ const ModalAddField = styled.p`
 
 `
 const ModalAddButton = styled.button`
+    cursor: pointer;
     background-color: #D90429;
     color: white;
     border: none;
@@ -207,6 +207,11 @@ const ModalAddButton = styled.button`
     padding: 20px 30px;
     font-weight: bold;
     font-size: 20px;
+    transition: 0.3s;
+    &:hover {
+        opacity: 0.7;
+        transition: 0.3s;
+    }
 `
 
 const Flex1 = styled.div`

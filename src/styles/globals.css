@@ -11,7 +11,7 @@ a {
   text-decoration: none;
 }
 
-a, h1, h2, h3, h4, h5, h6, p, input, button {
+a, h1, h2, h3, h4, h5, h6, p, input, button, label {
   font-family: 'Google Sans';
 }
 

@@ -7,6 +7,7 @@ import { IProduct, IProductState } from '../../types/types';
 
 import ModalProduct from '../Modal/ModalProduct';
 import HomeContainers from './HomeContainers';
+import HomeFilter from './HomeFilter';
 
 
 
@@ -26,13 +27,12 @@ const HomePage: React.FC = () => {
         <HomeBlock>
             <Wrapper>
                <HomeContent>
-                    <HomeFilter>
-                        <p>Brandfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</p>
-                    </HomeFilter>
-                    <HomeProducts>
-                        <HomeProductsTitle>The new arrivals</HomeProductsTitle>
+                    <HomeFilterBlock>
+                        <HomeFilter/>
+                    </HomeFilterBlock>
+                    <HomeProductsBlock>
                         <HomeContainers isLoading={isLoading} products={products}/>
-                    </HomeProducts>
+                    </HomeProductsBlock>
                </HomeContent>
             </Wrapper>
         </HomeBlock>
@@ -48,17 +48,15 @@ const HomeBlock = styled.div`
 const HomeContent = styled.div`
     display: flex;
     justify-content: space-between;
-    column-gap: 100px;
-    // display: grid;
-    // grid-template-columns: 1f 5fr;
+    column-gap: 100px; 
     margin-top: 30px
 `   
 
-const HomeFilter = styled.div`
+const HomeFilterBlock = styled.div`
     flex-grow: 1;
 `   
 
-const HomeProducts = styled.div`
+const HomeProductsBlock = styled.div`
     flex-grow: 3;
 `  
 
@@ -66,11 +64,6 @@ const Wrapper = styled.div`
     margin: 0 auto;
     width: 90%;
 `   
-const HomeProductsTitle = styled.h1`
-
-    font-size: 30px;
-    font-weight: bold;
-`
 
 
 export default HomePage;
