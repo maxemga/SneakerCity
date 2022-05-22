@@ -1,13 +1,21 @@
 import type { NextPage } from 'next'
+import HomePage from './../components/HomePage/HomePage'
+import { store } from '../store'
+import { Provider } from 'react-redux'
 import Header from '../components/Header/Header'
+
+
 
 
 
 const Home: NextPage = () => {
   return (
-  <div>
-    <Header />
-  </div>  
+    <Provider store={store}>
+      <div>
+        <Header />
+        <HomePage/>
+      </div>
+    </Provider>
   )
 }
 
