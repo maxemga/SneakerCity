@@ -3,7 +3,8 @@ import { IProductState } from "../../types/types";
 
 const productsState: IProductState = {
     products: [],
-    currentId: 0,
+    productsBasket: [],
+    currentPosition: 0,
     currentCategory: 'all'
 }
 
@@ -15,14 +16,35 @@ const productsReducer = createSlice({
             state.products = action.payload;
         },
         changeId (state, action) {
-            state.currentId = action.payload
+            state.currentPosition = action.payload
         },
         changeCategory (state, action) {
             state.currentCategory = action.payload
+        },
+        addProductsBasket (state, action) {
+            
+            
+            state.productsBasket.push(({...Object.assign(state.products[action.payload.position], {count: action.payload.count})}))
+            
+           
+
+            
+            
+            // console.log(state.productsBasket)
+        },
+        removeBasket (state) {
+            state.productsBasket = []
+        },
+        addCount (state, action) {
+            state.productsBasket[action.payload].count += 1;
+        },
+        removeCount (state, action) {
+            state.productsBasket[action.payload].count -= 1;
         }
+        
     }
 })
 
-export const { addProducts, changeId, changeCategory } = productsReducer.actions;
+export const { addProducts, changeId, changeCategory, addProductsBasket, removeBasket, addCount, removeCount } = productsReducer.actions;
 
 export default productsReducer.reducer;

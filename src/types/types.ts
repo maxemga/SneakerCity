@@ -15,9 +15,20 @@ export interface IProduct {
     image: string
 }
 
+export interface IProductBasket {
+    id: number,
+    title: string,
+    price: number,
+    category: string,
+    description: string,
+    image: string,
+    count: number
+}
+
 export interface IProductState {
     products: IProduct[],
-    currentId: number,
+    productsBasket: IProductBasket[],
+    currentPosition: number,
     currentCategory: string
 }
 

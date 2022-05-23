@@ -8,12 +8,14 @@ import Header from '../components/Header/Header'
 
 
 
+
+
 const Home: NextPage = () => {
   return (
     <Provider store={store}>
       <div>
         <Header />
-        <HomePage/>
+        <HomePage/>     
       </div>
     </Provider>
   )

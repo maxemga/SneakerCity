@@ -11,8 +11,9 @@ const HomePageContainer: React.FC<IProduct> = (props: IProduct) => {
 
 
     const changeModal = () => {
-        dispatch(changeId(props.id));
+        dispatch(changeId(props.id - 1));
         dispatch(showModalProduct());
+       
     }
 
     return(

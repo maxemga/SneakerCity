@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import { useHttp } from '../../hooks/useHttp'
 import { IProduct, IProductState } from '../../types/types';
+import FooterComponent from '../Footer/FooterComponents';
 import ModalMenu from '../Modal/ModalMenu';
 
 
@@ -32,6 +33,7 @@ const HomePage: React.FC = () => {
                     </HomeFilterBlock>
                     <HomeProductsBlock>
                         <HomeContainers isLoading={isLoading} products={products}/>
+                        {/* <FooterComponent/> */}
                     </HomeProductsBlock>
                </HomeContent>
             </Wrapper>

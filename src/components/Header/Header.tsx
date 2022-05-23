@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { INavigation } from "../../types/types";
 import { useState } from "react";
 import { changeCategory } from "../../store/reducers/productsReducer";
-import { useDispatch } from "react-redux";
-import { showModalMenu } from "../../store/reducers/modalReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { hideModalProduct, showModalMenu } from "../../store/reducers/modalReducer";
 
 
 
@@ -15,6 +15,7 @@ import { showModalMenu } from "../../store/reducers/modalReducer";
 
 const Header: NextPage = () => {
     const dispatch = useDispatch();
+    const productsBasket = useSelector((state: any) => state.productsReducer.productsBasket);
 
     const change = (category: string) => {
         dispatch(changeCategory(category));
@@ -35,7 +36,7 @@ const Header: NextPage = () => {
                 <HeaderContent>
                     <HeaderContentLogo>
                         <Link href="/">
-                                <Image src={require('../../../public/images/Header/HeaderLogo.svg')} alt="Header logo" width={150} height={100}/>              
+                                <Image style={{cursor: 'pointer'}} src={require('../../../public/images/Header/HeaderLogo.svg')} alt="Header logo" width={150} height={100}/>              
                         </Link>
                     </HeaderContentLogo>
                     <HeaderContentNav>
@@ -51,10 +52,10 @@ const Header: NextPage = () => {
                             
                         </HeaderContentIcon>
                         <HeaderContentIcon>
-                            <Link href="/">
+                            <Link href="/basket">
                                 <Image style={{cursor: 'pointer'}} src={require('../../../public/images/Header/HeaderIcon2.svg')} height={30} width={30} alt="Header logo" /> 
                             </Link>
-                            <HeaderContentIconCount>1</HeaderContentIconCount>
+                            <HeaderContentIconCount>{productsBasket.length <= 9 ? productsBasket.length : '9+'}</HeaderContentIconCount>
                         </HeaderContentIcon>
                         <HeaderContentIcon>
                             <Link href="/">

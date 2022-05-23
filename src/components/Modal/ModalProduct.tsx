@@ -8,6 +8,7 @@ import { Minus } from '../../../public/images/Modal/minus'
 import { Plus } from '../../../public/images/Modal/plus'
 import Row from '../../../public/images/Modal/modalRow'
 import { hideModalProduct } from '../../store/reducers/modalReducer'
+import { addProductsBasket } from '../../store/reducers/productsReducer'
 
 
 const ModalProduct: React.FC= () => {
@@ -15,7 +16,8 @@ const ModalProduct: React.FC= () => {
     const [isLike, setIsLike] = useState<boolean>(false);
     const [isDiscriptOpen, setIsDiscriptOpen] = useState<boolean>(true);
     const products = useSelector((state: any) => state.productsReducer.products);
-    const id = useSelector((state: any) => state.productsReducer.currentId);
+    const productsBasket = useSelector((state: any) => state.productsReducer.productsBasket);
+    const position = useSelector((state: any) => state.productsReducer.currentPosition);
     const dispatch = useDispatch();
 
     const sizes: ISizes[] = [
@@ -30,6 +32,11 @@ const ModalProduct: React.FC= () => {
         {id: 9, title: 40},
     ]
 
+    const fun = () => {
+        dispatch(addProductsBasket({position: products[position].id - 1, count: count}))
+        console.log(productsBasket)
+    }
+
     return(
         
         <Modal>
@@ -39,14 +46,15 @@ const ModalProduct: React.FC= () => {
                         <ModalCross onClick={() => dispatch(hideModalProduct())}>
                             <span></span>
                         </ModalCross>
-                        <h2>{products[id].title}</h2>
+                        <h2>{products[position].title}</h2>
                         
                         <Like setIsLike={setIsLike} isLike={isLike}/>
                     </ModalImageTitle>
-                    <ModalImagePrice>{products[id].price}$</ModalImagePrice>
+                    <ModalImagePrice>{products[position].price}$</ModalImagePrice>
                     <ModalImageIcon>
+                    <button onClick={() => console.log(productsBasket)}>fF</button>
                         <Image                      
-                            src={products[id].image}
+                            src={products[position].image}
                             alt="Picture of the author"
                             width={500}
                             height={500}
@@ -61,7 +69,7 @@ const ModalProduct: React.FC= () => {
                             <h3>Description</h3>
                             <Row isDiscriptOpen={isDiscriptOpen}/>
                         </div>
-                        {isDiscriptOpen ? <p>{products[id].description}</p> : null}
+                        {isDiscriptOpen ? <p>{products[position].description}</p> : null}
                     </ModalInfoDescription>
                     <ModalInfoSize>
                         <h3>Select size</h3>
@@ -72,7 +80,7 @@ const ModalProduct: React.FC= () => {
                                             <p>{element.title}</p>
                                         </ModalInfoSizeElement>
                             })}
-
+                            
                         </ModalInfoSizeElements>
                     </ModalInfoSize>
                     <Flex1/>
@@ -80,7 +88,7 @@ const ModalProduct: React.FC= () => {
                         <Minus count={count}  setCount={setCount}/>
                         <ModalAddField>{count}</ModalAddField>
                         <Plus count={count} setCount={setCount}/>
-                        <ModalAddButton>Add to cart</ModalAddButton>
+                        <ModalAddButton onClick={() =>fun()}>Add to cart</ModalAddButton>
                     </ModalInfoAdd>
                 </ModalInfo>
             </ModalContent>
