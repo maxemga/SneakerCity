@@ -22,7 +22,7 @@ const modalReducer = createSlice({
         },
         hideModalMenu (state) {
             state.isOpenMenu = false
-        },
+        }
     }
 })
 

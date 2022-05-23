@@ -3,7 +3,8 @@
 export interface INavigation {
     id: number,
     title: string,
-    category: string
+    category: string,
+    ref: string
 }
 
 export interface IProduct {

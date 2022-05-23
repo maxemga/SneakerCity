@@ -1,48 +1,43 @@
-import { useDispatch, useSelector } from 'react-redux'
+
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
+import { hideModalMenu } from '../../store/reducers/modalReducer';
 import { removeBaskets } from '../../store/reducers/productsReducer';
-import BasketContainers from './BasketContainers'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ModalBasket from '../Modal/ModalBasket';
 
-
-const BasketComponent: React.FC = () => {
+const ModalBasket: React.FC = () => {
     const dispatch = useDispatch();
     const productsBasket = useSelector((state: any) => state.productsReducer.productsBasket);
     const modal = useSelector((state: any) => state.modalReducer);
-    
 
     const clearBasket = () => {
         productsBasket.length == 0 ? toast.error('Basket is empty') : toast.success('The order has been placed');
         dispatch(removeBaskets());       
     }
-    
+
     return(
-    <>
-        <BasketBlock>
-            <Wrapper>
-                <BasketContent>
-                    <BasketProducts>
-                        <h2>Your shopping cart</h2>
-                        <BasketContainers/>
-                    </BasketProducts>
-                    <BasketCalc>
+        <MenuModal>
+            <MenuContent>
+                <HeaderCross onClick={() => dispatch(hideModalMenu())}>
+                    <span></span>
+                </HeaderCross>
+                <ModalBasketCalc>
                         <h2>Order summary</h2>
-                        <BasketCalcTotal>
+                        <ModalBasketCalcTotal>
                             <h3>Sub total</h3>
                             <p>{productsBasket.length == 0 ? '00.00' : productsBasket.reduce((value1: number, {price}: any) => value1 + price, 0)}$</p>
-                        </BasketCalcTotal>
-                        <BasketCalcDelivery>
+                        </ModalBasketCalcTotal>
+                        <ModalBasketCalcDelivery>
                             <h3>Delivery fee</h3>
                             <p>0$</p>
-                        </BasketCalcDelivery>
-                        <BasketCalcResult>
+                        </ModalBasketCalcDelivery>
+                        <ModalBasketCalcResult>
                             <p>{productsBasket.length == 0 ? '00.00' : productsBasket.reduce((value1: number, {price}: any) => value1 + price, 0)}$</p>
-                        </BasketCalcResult>
-                        <BasketCalcButton>
+                        </ModalBasketCalcResult>
+                        <ModalBasketCalcButton>
                             <button onClick={() => clearBasket()}>Proceed to checkout</button>
-                        </BasketCalcButton>
+                        </ModalBasketCalcButton>
                         <ToastContainer
                             position="top-center"
                             autoClose={2000}
@@ -54,43 +49,15 @@ const BasketComponent: React.FC = () => {
                             draggable
                             pauseOnHover
                         />
-                        
-                    </BasketCalc>
-                    {modal.isOpenMenu ? <ModalBasket/> : null}
-                </BasketContent>
-            </Wrapper>
-        </BasketBlock>
-
-        
-    </>
+                    </ModalBasketCalc>
+                
+               
+            </MenuContent>
+        </MenuModal>
     )
 }
 
-const BasketBlock = styled.div`
-overflow: auto;
-`
-
-const Wrapper = styled.div`
-    margin: 0 auto;
-    width: 90%;
-`
-
-const BasketContent = styled.div`
-    display: flex;
-    column-gap: 100px;
-    justify-content: space-between;
-    
-`
-
-const BasketProducts = styled.div` 
-    width: 100%;
-    padding-bottom: 30px;
-    h2{ 
-        font-size: 30px;
-    }
-`
-
-const BasketCalc = styled.div`
+const ModalBasketCalc = styled.div`
     width: 500px;
     h2 {
         color: rgba(0, 0, 0, 0.75);
@@ -106,17 +73,22 @@ const BasketCalc = styled.div`
     }
 
     @media (max-width: 768px) {
-        display: none;
+        width: 300px;
+        display: block;
+    }
+
+    @media (max-width: 340px) {
+        width: 200px;
     }
 `
 
-const BasketCalcTotal = styled.div`
+const ModalBasketCalcTotal = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
 `
 
-const BasketCalcDelivery = styled.div`
+const ModalBasketCalcDelivery = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -124,12 +96,12 @@ const BasketCalcDelivery = styled.div`
     border-bottom: 2px solid rgba(0, 0, 0, 0.15);
 `
 
-const BasketCalcResult = styled.div`
+const ModalBasketCalcResult = styled.div`
     margin-top: 20px;
     float: right;
 `
 
-const BasketCalcButton = styled.div`
+const ModalBasketCalcButton = styled.div`
     margin-top: 150px;
     transition: .3s;
     button {
@@ -148,8 +120,51 @@ const BasketCalcButton = styled.div`
     }
 `
 
+const MenuModal = styled.div`
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    background-color: white;
+    -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    height: 100%;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+    
+`
 
 
+const HeaderCross = styled.div`
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 50px;
+    width: 100%;
+    align-items: center;
+    height: 50px;
+    &:before, &:after {
+        content: ""; 
+        position: absolute; 
+        width: 35px; 
+        height: 8px; 
+        background: #D90429;
+        border-radius: 5px;
+    };
+    &::before {
+        transform: rotate(45deg)
+    };
+    &::after {
+        transform: rotate(-45deg)
+    };
+`
 
+const MenuContent = styled.div`
+    padding: 0 60px;
 
-export default BasketComponent;
+`
+
+export default ModalBasket;

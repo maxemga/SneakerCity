@@ -3,10 +3,9 @@ import styled from 'styled-components'
 import Link from "next/link";
 import Image from 'next/image'
 import { INavigation } from "../../types/types";
-import { useState } from "react";
 import { changeCategory } from "../../store/reducers/productsReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { hideModalProduct, showModalMenu } from "../../store/reducers/modalReducer";
+import { showModalMenu } from "../../store/reducers/modalReducer";
 
 
 
@@ -23,11 +22,11 @@ const Header: NextPage = () => {
 
     
     const navigation: INavigation[] = [
-        {id: 1, title: "All", category: "all"},
-        {id: 2, title: "Electronics", category: "electronics"},
-        {id: 3, title: "Jewelery", category: "jewelery"},
-        {id: 4, title: "Men's clothing", category: "men's clothing"},
-        {id: 5, title: "Women's clothing", category: "women's clothing"}
+        {id: 1, title: "All", category: "all", ref: '/'},
+        {id: 2, title: "Electronics", category: "electronics", ref: '/'},
+        {id: 3, title: "Jewelery", category: "jewelery", ref: '/'},
+        {id: 4, title: "Men's clothing", category: "men's clothing", ref: '/'},
+        {id: 5, title: "Women's clothing", category: "women's clothing", ref: '/'}
     ]
 
     return(
@@ -41,7 +40,7 @@ const Header: NextPage = () => {
                     </HeaderContentLogo>
                     <HeaderContentNav>
                         {navigation.map((element) => {
-                            return <p onClick={() => change(element.category)} key={element.id}>{element.title}</p>
+                            return <Link href={element.ref} key={element.id}><p onClick={() => change(element.category)}>{element.title}</p></Link>
                         })}
                     </HeaderContentNav>
                     <HeaderContentIcons>

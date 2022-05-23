@@ -2,13 +2,15 @@ import styled from 'styled-components'
 import Image from 'next/image'
 import { ISizes } from '../../types/types'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Like } from '../../../public/images/Modal/modalIcon'
 import { Minus } from '../../../public/images/Modal/minus'
 import { Plus } from '../../../public/images/Modal/plus'
 import Row from '../../../public/images/Modal/modalRow'
 import { hideModalProduct } from '../../store/reducers/modalReducer'
 import { addProductsBasket } from '../../store/reducers/productsReducer'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ModalProduct: React.FC= () => {
@@ -33,12 +35,27 @@ const ModalProduct: React.FC= () => {
     ]
 
     const fun = () => {
-        dispatch(addProductsBasket({position: products[position].id - 1, count: count}))
-        console.log(productsBasket)
+        toast.success('Product added', {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+
+        // let s = productsBasket.find((el: any) => el.id == products[position].id - 1);
+        isInArray() == undefined ? dispatch(addProductsBasket({position: products[position].id - 1, count: count})) : null;
+        console.log(isInArray());
+    }
+
+    const isInArray = () => {
+        return productsBasket.find((el: any) => el.id == products[position].id - 1);
     }
 
     return(
-        
+        <>
         <Modal>
             <ModalContent>
                 <ModalImage>
@@ -90,9 +107,22 @@ const ModalProduct: React.FC= () => {
                         <Plus count={count} setCount={setCount}/>
                         <ModalAddButton onClick={() =>fun()}>Add to cart</ModalAddButton>
                     </ModalInfoAdd>
+                    
                 </ModalInfo>
             </ModalContent>
         </Modal>
+        <ToastContainer
+            position="top-center"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+        />
+        </>
     )
 }
 

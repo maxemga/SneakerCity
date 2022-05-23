@@ -41,8 +41,8 @@ const Wrapper = styled.div`
 `
 
 const FooterContent = styled.div`
-    padding-bottom: 80px;
-    padding-top: 80px;
+    padding-bottom: 60px;
+    padding-top: 60px;
     border-top: 1px solid rgba(0, 0, 0, 0.15);
     display: flex;
     justify-content: space-between;
@@ -57,11 +57,21 @@ const FooterContent = styled.div`
         margin-left: 10px;
         margin-top: 10px;
     }
+
+    @media (max-width: 1200px) {
+        display: block;
+        text-align: center;
+    }
 `
 const FooterIcons = styled.div`
     display: flex;
     align-items: center;
     column-gap: 20px;
+
+    @media (max-width: 1200px) {
+        display: block;
+        text-align: center;
+    }
     
 `
 const FooterPhone = styled.div`

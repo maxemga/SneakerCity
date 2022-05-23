@@ -57,7 +57,7 @@ const ModalMenu: React.FC = () => {
                         </Link>
                     </HeaderContentIcon>
                     <HeaderContentIcon>
-                        <Link href="/">
+                        <Link href="/basket">
                             <Image style={{cursor: 'pointer'}} src={require('../../../public/images/Header/HeaderIcon2.svg')} height={30} width={30} alt="Header logo" /> 
                         </Link>
                         <HeaderContentIconCount>1</HeaderContentIconCount>

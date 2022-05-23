@@ -16,24 +16,25 @@ const productsReducer = createSlice({
             state.products = action.payload;
         },
         changeId (state, action) {
-            state.currentPosition = action.payload
+            state.currentPosition = action.payload;
         },
         changeCategory (state, action) {
-            state.currentCategory = action.payload
+            state.currentCategory = action.payload;
         },
         addProductsBasket (state, action) {
-            
-            
-            state.productsBasket.push(({...Object.assign(state.products[action.payload.position], {count: action.payload.count})}))
-            
-           
 
+            // let st = state.productsBasket.find(el => el.id == action.payload.position);
+            state.productsBasket.push(Object.assign(state.products[action.payload.position], {count: action.payload.count}));
+            // state.productsBasket[st.id].count += action.payload.count;
+
+            // console.log(state.productsBasket.find(el => el.id == action.payload.position))
             
-            
-            // console.log(state.productsBasket)
         },
-        removeBasket (state) {
-            state.productsBasket = []
+        removeBasket (state, action) {
+            state.productsBasket = state.productsBasket.filter(el => el.id != action.payload);
+        },
+        removeBaskets (state) {
+            state.productsBasket = [];
         },
         addCount (state, action) {
             state.productsBasket[action.payload].count += 1;
@@ -41,10 +42,11 @@ const productsReducer = createSlice({
         removeCount (state, action) {
             state.productsBasket[action.payload].count -= 1;
         }
+
         
     }
 })
 
-export const { addProducts, changeId, changeCategory, addProductsBasket, removeBasket, addCount, removeCount } = productsReducer.actions;
+export const { addProducts, changeId, changeCategory, addProductsBasket, removeBaskets, addCount, removeCount, removeBasket } = productsReducer.actions;
 
 export default productsReducer.reducer;

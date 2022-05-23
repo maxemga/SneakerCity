@@ -1,12 +1,14 @@
 import Image from 'next/image'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Minus } from '../../../public/images/Basket/minus'
 import { Plus } from '../../../public/images/Basket/plus'
+import { removeBasket } from '../../store/reducers/productsReducer'
 import { IProduct, IProductBasket } from '../../types/types'
 
 const BasketContainer: React.FC<IProductBasket> = (props: IProductBasket) => {
+    const dispatch = useDispatch();
     // const [count, setCount] = useState<number>(1);
     
 
@@ -33,10 +35,37 @@ const BasketContainer: React.FC<IProductBasket> = (props: IProductBasket) => {
                 <BasketContainerPrice>
                     <p>{props.price*props.count}$</p>
                 </BasketContainerPrice>
+                <ModalCross onClick={() => dispatch(removeBasket(props.id))}>
+                            <span></span>
+                        </ModalCross>
             </BasketContainerContent>
         </BasketProductsContainer>
     )
 }
+
+const ModalCross = styled.div`
+    cursor: pointer;
+    position: absolute;
+    top: 25px;
+    right: 40px;
+
+    height: 50px;
+    &:before, &:after {
+        content: ""; 
+        position: absolute; 
+        width: 25px; 
+        height: 5px; 
+        background: #B2B2B2;
+        border-radius: 5px;
+    };
+    &::before {
+        transform: rotate(45deg)
+    };
+    &::after {
+        transform: rotate(-45deg)
+    };
+`
+
 
 const BasketProductsContainer = styled.div`
     background-color: #F5F5F5;
@@ -47,6 +76,13 @@ const BasketContainerContent = styled.div`
     padding: 20px 30px;
     display: flex;
     align-items: center;
+    position: relative;
+
+    @media (max-width: 1200px) {
+        display: block;
+        text-align: center;
+    }
+    
 `
 
 const BasketContainerImage = styled.div`
@@ -67,10 +103,32 @@ const BasketContainerTitle = styled.div`
     h3 {
         color: rgba(0, 0, 0, 0.65);
     }
+
+    @media (max-width: 1200px) {
+        h2 {
+            overflow: visible;
+            width: 100%;
+        }
+        h3 {
+            display: none;
+        }
+    }
 `
 
 const BasketContainerButtons = styled.div`
+    
     margin-left: 25%;
+    @media (max-width: 1600px) {
+        margin-left: 10%;
+    }
+    @media (max-width: 1600px) {
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+    }
+    @media (max-width: 1024px) {
+        margin-top: 100px;
+    }
 `
 
 const BasketContainerPrice = styled.div`
@@ -90,14 +148,14 @@ const ModalInfoAdd = styled.div`
     align-items: center;
     column-gap: 20px;
 `
+
 const ModalAddField = styled.p`
     border: 1px solid rgba(0, 0, 0, 0.65);
     padding: 25px;
     border-radius: 8px;
-    margin: 0;
-    line-height: 0;
-
+    line-height: 10px;
 `
+
 const ModalAddButton = styled.button`
     cursor: pointer;
     background-color: #D90429;
