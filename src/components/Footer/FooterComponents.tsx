@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import FooterIcon1 from '../../../public/images/Footer/FooterIcon1'
 import FooterIcon2 from '../../../public/images/Footer/FooterIcon2'

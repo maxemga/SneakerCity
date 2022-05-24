@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { INavigation } from "../../types/types";
 import { changeCategory } from "../../store/reducers/productsReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { showModalMenu } from "../../store/reducers/modalReducer";
+import { hideModals, showModalMenu } from "../../store/reducers/modalReducer";
 
 
 
@@ -20,6 +20,11 @@ const Header: NextPage = () => {
         dispatch(changeCategory(category));
     }
 
+    const clickBurger = (event: Event) => {
+        dispatch(showModalMenu());
+        event.stopPropagation();
+    }
+
     
     const navigation: INavigation[] = [
         {id: 1, title: "All", category: "all", ref: '/'},
@@ -30,7 +35,7 @@ const Header: NextPage = () => {
     ]
 
     return(
-        <HeaderBlock>
+        <HeaderBlock onClick={() => dispatch(hideModals())}>
             <Wrapper>
                 <HeaderContent>
                     <HeaderContentLogo>
@@ -62,7 +67,7 @@ const Header: NextPage = () => {
                             </Link>
                         </HeaderContentIcon>
                     </HeaderContentIcons>
-                    <HeaderContentBurger onClick={() => dispatch(showModalMenu())}>
+                    <HeaderContentBurger onClick={(event: Event) => clickBurger(event)}>
                         <span></span>
                     </HeaderContentBurger>
                 </HeaderContent>

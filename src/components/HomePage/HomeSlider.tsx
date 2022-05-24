@@ -94,8 +94,8 @@ import { changeCurrentPrice } from "../../store/reducers/productsReducer";
         <div className="slider">
           <div className="slider__track"></div>
           <div ref={range} className="slider__range"></div>
-          <div className="slider__left-value">{minVal}</div>
-          <div className="slider__right-value">{maxVal}</div>
+          <div className="slider__left-value">{minVal}$</div>
+          <div className="slider__right-value">{maxVal}$</div>
         </div>
       </div>
     );

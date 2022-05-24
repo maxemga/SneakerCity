@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { removeBaskets } from '../../store/reducers/productsReducer';
 import BasketContainers from './BasketContainers'
 import { ToastContainer, toast } from 'react-toastify';
+import { hideModals } from '../../store/reducers/modalReducer';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalBasket from '../Modal/ModalBasket';
 
@@ -20,7 +21,7 @@ const BasketComponent: React.FC = () => {
     
     return(
     <>
-        <BasketBlock>
+        <BasketBlock onClick={() => dispatch(hideModals())}>
             <Wrapper>
                 <BasketContent>
                     <BasketProducts>

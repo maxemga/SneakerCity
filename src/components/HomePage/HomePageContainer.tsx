@@ -8,16 +8,16 @@ import { changeId } from '../../store/reducers/productsReducer'
 const HomePageContainer: React.FC<IProduct> = (props: IProduct) => {
     const dispatch = useDispatch();
 
-    const changeModal = () => {
+    const changeModal = (e: Event) => {
         dispatch(changeId(props.id));
         dispatch(showModalProduct());
-        console.log(props, ' ', props.id)
+        e.stopPropagation();
        
     }
 
     return(
         <>
-        <HomeProductsContainer onClick={() => changeModal()}>
+        <HomeProductsContainer onClick={(event: Event) => changeModal(event)}>
             <HomeProductsContainerImage>
                 <Image
                     src={props.image}

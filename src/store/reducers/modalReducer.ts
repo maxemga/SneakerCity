@@ -22,10 +22,14 @@ const modalReducer = createSlice({
         },
         hideModalMenu (state) {
             state.isOpenMenu = false
+        },
+        hideModals (state) {
+            state.isOpenMenu = false
+            state.isOpenProduct = false
         }
     }
 })
 
-export const { showModalProduct , hideModalProduct , showModalMenu, hideModalMenu } = modalReducer.actions;
+export const { showModalProduct , hideModalProduct , showModalMenu, hideModalMenu, hideModals } = modalReducer.actions;
 
 export default modalReducer.reducer;
