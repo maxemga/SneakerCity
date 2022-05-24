@@ -8,31 +8,31 @@ import HomePageContainer from './HomePageContainer'
 
 const HomeContainers: React.FC<IHomeContainers>= (props) => {
     const currentCategory = useSelector((state: any) => state.productsReducer.currentCategory);
-    const [newProducts, setNewProducts] = useState<IProduct[]>([]);
+    // const [newProducts, setNewProducts] = useState<IProduct[]>([]);
+    const minCurrentPrice = useSelector((state: any) => state.productsReducer.productsCurrentMinPrice);
+    const maxCurrentPrice = useSelector((state: any) => state.productsReducer.productsCurrentMaxPrice);
 
 
-    const filterProducts = () => {
-        return props.products.filter((element: IProduct) => element.category == currentCategory)
-    }
 
-    useEffect(() => {
-        setNewProducts(filterProducts());
-    }, [currentCategory])
 
     return(
         <>
-        <HomeProductsTitle onClick={() => console.log(currentCategory)}>The new arrivals</HomeProductsTitle>
+        <HomeProductsTitle>The new arrivals</HomeProductsTitle>
         <HomeProductsContainers>
-
-            {currentCategory == 'all' ? props.products && props.products.map((element: IProduct) => {
+    
+            {currentCategory == 'all' ? props.products && props.products.filter((element: IProduct) =>  element.price >= minCurrentPrice && element.price <= maxCurrentPrice).map((element: IProduct) => {
                 return <HomePageContainer key={element.id} {...element}/>
             }):
-            newProducts && newProducts.map((element: IProduct) => {
+            props.products && props.products.filter((element: IProduct) => element.category == currentCategory && element.price >= minCurrentPrice && element.price <= maxCurrentPrice).map((element: IProduct) => {
                 return <HomePageContainer key={element.id} {...element}/>
-            }) 
+            })
             }
-            {props.isLoading ? <ReactLoading className={'loader'} type={'spin'} color={'black'} height={100} width={100}/> : null }
 
+          
+            
+
+             
+            {props.isLoading ? <ReactLoading className={'loader'} type={'spin'} color={'black'} height={100} width={100}/> : null }
         </HomeProductsContainers>
         </>
     )

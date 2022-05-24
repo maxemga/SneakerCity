@@ -1,7 +1,18 @@
 import styled from 'styled-components'
 import { ISizes } from '../../types/types';
+import MultiRangeSlider from './HomeSlider';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeCurrentPrice } from '../../store/reducers/productsReducer';
 
 const HomeFilter: React.FC = () => {
+    const dispatch = useDispatch();
+    const [minValue, setMinValue] = useState<number>(0);
+    const [maxValue, setMaxValue] = useState<number>(0);
+    const products = useSelector((state: any) => state.productsReducer.products);
+    const minPrice = useSelector((state: any) => state.productsReducer.productsMinPrice);
+    const maxPrice = useSelector((state: any) => state.productsReducer.productsMaxPrice);
+
     const brands: {id: number, title: string}[] = [
         {id: 1, title: 'Nike'},
         {id: 2, title: 'Jordan'},
@@ -19,8 +30,13 @@ const HomeFilter: React.FC = () => {
         {id: 5, title: 36},
         {id: 6, title: 37}
     ]
+    
+    useEffect(() => {
+        setMinValue(minPrice);
+        setMaxValue(maxPrice);
+    }, [products])
 
-
+    
     return(
         <Filter>
             <FilterContent>
@@ -38,9 +54,7 @@ const HomeFilter: React.FC = () => {
                 </FilterBrands>
                 <FilterPrice>
                     <h2>Price range</h2>
-                    
-
-
+                    <MultiRangeSlider min={minValue} max={maxValue} onChange={({ min, max }: { min: number; max: number }) => dispatch(changeCurrentPrice({min: min, max: max}))}/>
                 </FilterPrice>
                 <FilterSizes>
                     <h2>Sizes</h2>
@@ -82,6 +96,7 @@ const FilterPrice = styled.div`
 
 `
 const FilterSizes = styled.div`
+    margin-top: 40px;
     padding-top: 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.15);
 `

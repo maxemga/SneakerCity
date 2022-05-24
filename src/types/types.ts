@@ -29,6 +29,11 @@ export interface IProductBasket {
 export interface IProductState {
     products: IProduct[],
     productsBasket: IProductBasket[],
+    productsMinPrice: number,
+    productsMaxPrice: number,
+    productsCurrentMinPrice: number,
+    productsCurrentMaxPrice: number,
+    currentId: number,
     currentPosition: number,
     currentCategory: string
 }

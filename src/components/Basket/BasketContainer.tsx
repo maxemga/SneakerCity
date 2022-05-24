@@ -24,9 +24,9 @@ const BasketContainer: React.FC<IProductBasket> = (props: IProductBasket) => {
                 </BasketContainerTitle>
                 <BasketContainerButtons>
                     <ModalInfoAdd>
-                        <Minus/>
+                        <Minus id={props.id}/>
                         <ModalAddField>{props.count}</ModalAddField>
-                        <Plus/>
+                        <Plus id={props.id}/>
                     </ModalInfoAdd>
                 </BasketContainerButtons>
                 <Flex>
@@ -127,7 +127,7 @@ const BasketContainerButtons = styled.div`
         justify-content: space-around;
     }
     @media (max-width: 1024px) {
-        margin-top: 100px;
+        margin-top: 20px;
     }
 `
 

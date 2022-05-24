@@ -2,11 +2,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import { useHttp } from '../../hooks/useHttp'
-import { IProduct, IProductState } from '../../types/types';
 import FooterComponent from '../Footer/FooterComponents';
 import ModalMenu from '../Modal/ModalMenu';
-
-
 import ModalProduct from '../Modal/ModalProduct';
 import HomeContainers from './HomeContainers';
 import HomeFilter from './HomeFilter';
@@ -15,11 +12,11 @@ import HomeFilter from './HomeFilter';
 
 const HomePage: React.FC = () => {
     const modal = useSelector((state: any) => state.modalReducer);
-    const { request, products, isLoading } = useHttp();
+    const products = useSelector((state: any) => state.productsReducer.products);
+    const { request, isLoading } = useHttp();
 
     useEffect(() => {
-        request('https://fakestoreapi.com/products');    
-
+        products.length == 0 ? request('https://fakestoreapi.com/products') : null;
     }, [])
 
 
@@ -33,7 +30,8 @@ const HomePage: React.FC = () => {
                     </HomeFilterBlock>
                     <HomeProductsBlock>
                         <HomeContainers isLoading={isLoading} products={products}/>
-                        {/* <FooterComponent/> */}
+                        <Flex/>
+                        {isLoading == true ? null : <FooterComponent/>}
                     </HomeProductsBlock>
                </HomeContent>
             </Wrapper>
@@ -64,6 +62,10 @@ const HomeContent = styled.div`
 const HomeFilterBlock = styled.div`
     flex-grow: 1;
 `   
+
+const Flex = styled.div`
+    flex: 1;
+`
 
 const HomeProductsBlock = styled.div`
     flex-grow: 3;

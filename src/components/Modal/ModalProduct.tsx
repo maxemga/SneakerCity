@@ -18,7 +18,6 @@ const ModalProduct: React.FC= () => {
     const [isLike, setIsLike] = useState<boolean>(false);
     const [isDiscriptOpen, setIsDiscriptOpen] = useState<boolean>(true);
     const products = useSelector((state: any) => state.productsReducer.products);
-    const productsBasket = useSelector((state: any) => state.productsReducer.productsBasket);
     const position = useSelector((state: any) => state.productsReducer.currentPosition);
     const dispatch = useDispatch();
 
@@ -35,24 +34,13 @@ const ModalProduct: React.FC= () => {
     ]
 
     const fun = () => {
-        toast.success('Product added', {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
-
-        // let s = productsBasket.find((el: any) => el.id == products[position].id - 1);
-        isInArray() == undefined ? dispatch(addProductsBasket({position: products[position].id - 1, count: count})) : null;
-        console.log(isInArray());
+        toast.success('Product added');
+        
+        dispatch(addProductsBasket({position: position, count: count}))
+        setCount(1);
+        
     }
 
-    const isInArray = () => {
-        return productsBasket.find((el: any) => el.id == products[position].id - 1);
-    }
 
     return(
         <>
@@ -69,12 +57,12 @@ const ModalProduct: React.FC= () => {
                     </ModalImageTitle>
                     <ModalImagePrice>{products[position].price}$</ModalImagePrice>
                     <ModalImageIcon>
-                    <button onClick={() => console.log(productsBasket)}>fF</button>
                         <Image                      
                             src={products[position].image}
                             alt="Picture of the author"
                             width={500}
                             height={500}
+                            layout='responsive'
                             objectFit={'contain'}
 
                         />
@@ -236,7 +224,9 @@ const ModalInfoDescription = styled.div`
         align-items: center;
         justify-content: space-between;
     }
-   
+    @media (max-width: 1200px) {
+        display: none;
+    }
     border-bottom: 1px solid #E5E5E5;
     padding-bottom: 20px;
 `
@@ -279,6 +269,10 @@ const ModalInfoAdd = styled.div`
     display: flex;
     align-items: center;
     column-gap: 20px;
+
+    @media (max-width: 1200px) {
+        margin-top: 30px;
+    }
 `
 
 const ModalAddField = styled.p`

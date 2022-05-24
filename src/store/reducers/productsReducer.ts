@@ -3,7 +3,12 @@ import { IProductState } from "../../types/types";
 
 const productsState: IProductState = {
     products: [],
+    productsMinPrice: 0,
+    productsMaxPrice: 0,
+    productsCurrentMinPrice: 0,
+    productsCurrentMaxPrice: 0,
     productsBasket: [],
+    currentId: 0,
     currentPosition: 0,
     currentCategory: 'all'
 }
@@ -14,21 +19,28 @@ const productsReducer = createSlice({
     reducers: {
         addProducts (state, action) {
             state.products = action.payload;
+            state.productsMinPrice = Number(state.products.sort((a: any, b: any) => a.price - b.price)[0].price);
+            state.productsMaxPrice = Number(state.products.sort((a: any, b: any) => a.price - b.price)[state.products.length - 1].price);
+    
         },
         changeId (state, action) {
-            state.currentPosition = action.payload;
+            state.currentId = action.payload;
+            state.currentPosition = state.products.findIndex(el => el.id == state.currentId);
         },
         changeCategory (state, action) {
             state.currentCategory = action.payload;
         },
-        addProductsBasket (state, action) {
+        addProductsBasket (state, action) {     
+            let element = state.productsBasket.filter(el => el.id == state.currentId)   
+            let positionElement = state.productsBasket.findIndex(el => el.id == state.currentId);
 
-            // let st = state.productsBasket.find(el => el.id == action.payload.position);
-            state.productsBasket.push(Object.assign(state.products[action.payload.position], {count: action.payload.count}));
-            // state.productsBasket[st.id].count += action.payload.count;
-
-            // console.log(state.productsBasket.find(el => el.id == action.payload.position))
-            
+            if (element.length >= 1) {
+                state.productsBasket[positionElement].count += action.payload.count 
+            }
+            else {
+                state.productsBasket.push(Object.assign(state.products[action.payload.position], {count: action.payload.count}))
+            }
+         
         },
         removeBasket (state, action) {
             state.productsBasket = state.productsBasket.filter(el => el.id != action.payload);
@@ -37,16 +49,23 @@ const productsReducer = createSlice({
             state.productsBasket = [];
         },
         addCount (state, action) {
-            state.productsBasket[action.payload].count += 1;
+            let el = state.productsBasket[state.productsBasket.findIndex(item => item.id == action.payload)];
+            el.count += 1;
+           
         },
         removeCount (state, action) {
-            state.productsBasket[action.payload].count -= 1;
+            let el = state.productsBasket[state.productsBasket.findIndex(item => item.id == action.payload)];
+            el.count == 1 ? null : el.count -= 1;
+        },
+        changeCurrentPrice (state, action) {
+            state.productsCurrentMinPrice = action.payload.min
+            state.productsCurrentMaxPrice = action.payload.max
         }
 
         
     }
 })
 
-export const { addProducts, changeId, changeCategory, addProductsBasket, removeBaskets, addCount, removeCount, removeBasket } = productsReducer.actions;
+export const { addProducts, changeId, changeCategory, addProductsBasket, removeBaskets, addCount, removeCount, removeBasket, changeCurrentPrice } = productsReducer.actions;
 
 export default productsReducer.reducer;

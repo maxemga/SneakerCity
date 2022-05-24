@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import Image from 'next/image'
 import { IProduct } from '../../types/types'
-import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { showModalProduct } from '../../store/reducers/modalReducer'
 import { changeId } from '../../store/reducers/productsReducer'
@@ -9,14 +8,15 @@ import { changeId } from '../../store/reducers/productsReducer'
 const HomePageContainer: React.FC<IProduct> = (props: IProduct) => {
     const dispatch = useDispatch();
 
-
     const changeModal = () => {
-        dispatch(changeId(props.id - 1));
+        dispatch(changeId(props.id));
         dispatch(showModalProduct());
+        console.log(props, ' ', props.id)
        
     }
 
     return(
+        <>
         <HomeProductsContainer onClick={() => changeModal()}>
             <HomeProductsContainerImage>
                 <Image
@@ -35,6 +35,7 @@ const HomePageContainer: React.FC<IProduct> = (props: IProduct) => {
             </HomeProductsContainerInfo>
         </HomeProductsContainer>
         
+        </>
     )
 }
 
