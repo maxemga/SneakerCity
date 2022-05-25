@@ -35,7 +35,6 @@ const ModalMenu: React.FC = () => {
         {id: 6, title: 37}
     ]
     const [isDiscriptOpen, setIsDiscriptOpen] = useState<boolean>(true);
-
     const dispatch = useDispatch();
 
     const change = (category: string) => {

@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from 'next/image'
 import { INavigation } from "../../types/types";
 import { changeCategory } from "../../store/reducers/productsReducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { hideModals, showModalMenu } from "../../store/reducers/modalReducer";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 
 
@@ -14,7 +15,7 @@ import { hideModals, showModalMenu } from "../../store/reducers/modalReducer";
 
 const Header: NextPage = () => {
     const dispatch = useDispatch();
-    const productsBasket = useSelector((state: any) => state.productsReducer.productsBasket);
+    const productsBasket = useTypedSelector(state => state.productsReducer.productsBasket);
 
     const change = (category: string) => {
         dispatch(changeCategory(category));

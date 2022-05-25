@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Image from 'next/image'
 import { ISizes } from '../../types/types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { Like } from '../../../public/images/Modal/modalIcon'
 import { Minus } from '../../../public/images/Modal/minus'
@@ -11,14 +11,15 @@ import { hideModalProduct } from '../../store/reducers/modalReducer'
 import { addProductsBasket } from '../../store/reducers/productsReducer'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 
 
 const ModalProduct: React.FC= () => {
     const [count, setCount] = useState<number>(1);
     const [isLike, setIsLike] = useState<boolean>(false);
     const [isDiscriptOpen, setIsDiscriptOpen] = useState<boolean>(true);
-    const products = useSelector((state: any) => state.productsReducer.products);
-    const position = useSelector((state: any) => state.productsReducer.currentPosition);
+    const products = useTypedSelector(state => state.productsReducer.products);
+    const position = useTypedSelector(state => state.productsReducer.currentPosition);
     const dispatch = useDispatch();
 
     const sizes: ISizes[] = [

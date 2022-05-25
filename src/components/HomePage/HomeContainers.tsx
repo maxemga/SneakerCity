@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
+
 import ReactLoading from 'react-loading';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
-import { IHomeContainers, IProduct, IProductState } from '../../types/types';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { IHomeContainers, IProduct } from '../../types/types';
 import HomePageContainer from './HomePageContainer'
 
 
 const HomeContainers: React.FC<IHomeContainers>= (props) => {
-    const currentCategory = useSelector((state: any) => state.productsReducer.currentCategory);
-    // const [newProducts, setNewProducts] = useState<IProduct[]>([]);
-    const minCurrentPrice = useSelector((state: any) => state.productsReducer.productsCurrentMinPrice);
-    const maxCurrentPrice = useSelector((state: any) => state.productsReducer.productsCurrentMaxPrice);
+    const currentCategory = useTypedSelector(state => state.productsReducer.currentCategory);
+    const minCurrentPrice = useTypedSelector(state => state.productsReducer.productsCurrentMinPrice);
+    const maxCurrentPrice = useTypedSelector(state => state.productsReducer.productsCurrentMaxPrice);
 
 
 
@@ -20,7 +20,7 @@ const HomeContainers: React.FC<IHomeContainers>= (props) => {
         <HomeProductsTitle>The new arrivals</HomeProductsTitle>
         <HomeProductsContainers>
     
-            {currentCategory == 'all' ? props.products && props.products.filter((element: IProduct) =>  element.price >= minCurrentPrice && element.price <= maxCurrentPrice).map((element: IProduct) => {
+            {currentCategory == 'all' ? props.products && props.products.filter((element: IProduct) => element.price >= minCurrentPrice && element.price <= maxCurrentPrice).map((element: IProduct) => {
                 return <HomePageContainer key={element.id} {...element}/>
             }):
             props.products && props.products.filter((element: IProduct) => element.category == currentCategory && element.price >= minCurrentPrice && element.price <= maxCurrentPrice).map((element: IProduct) => {

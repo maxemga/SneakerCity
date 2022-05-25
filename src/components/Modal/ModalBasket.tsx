@@ -5,11 +5,12 @@ import { hideModalMenu } from '../../store/reducers/modalReducer';
 import { removeBaskets } from '../../store/reducers/productsReducer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 const ModalBasket: React.FC = () => {
     const dispatch = useDispatch();
-    const productsBasket = useSelector((state: any) => state.productsReducer.productsBasket);
-    const modal = useSelector((state: any) => state.modalReducer);
+    const productsBasket = useTypedSelector(state => state.productsReducer.productsBasket);
+    const modal = useTypedSelector(state => state.modalReducer);
 
     const clearBasket = () => {
         productsBasket.length == 0 ? toast.error('Basket is empty') : toast.success('The order has been placed');

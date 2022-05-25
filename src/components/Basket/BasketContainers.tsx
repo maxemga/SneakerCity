@@ -1,10 +1,11 @@
-import { useSelector } from 'react-redux';
+
 import styled from 'styled-components'
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { IProduct } from '../../types/types';
 import BasketContainer from './BasketContainer';
 
 const BasketContainers: React.FC = () => {
-    const productsBasket = useSelector((state: any) => state.productsReducer.productsBasket);
+    const productsBasket = useTypedSelector(state=> state.productsReducer.productsBasket);
 
     return(
         <BasketProductsContainers>

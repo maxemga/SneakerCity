@@ -1,17 +1,14 @@
 import Image from 'next/image'
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { Minus } from '../../../public/images/Basket/minus'
 import { Plus } from '../../../public/images/Basket/plus'
 import { removeBasket } from '../../store/reducers/productsReducer'
-import { IProduct, IProductBasket } from '../../types/types'
+import { IProductBasket } from '../../types/types'
 
 const BasketContainer: React.FC<IProductBasket> = (props: IProductBasket) => {
     const dispatch = useDispatch();
-    // const [count, setCount] = useState<number>(1);
     
-
     return(
         <BasketProductsContainer>
             <BasketContainerContent>

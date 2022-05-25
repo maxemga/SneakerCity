@@ -2,16 +2,17 @@ import styled from 'styled-components'
 import { ISizes } from '../../types/types';
 import MultiRangeSlider from './HomeSlider';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { changeCurrentPrice } from '../../store/reducers/productsReducer';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 const HomeFilter: React.FC = () => {
     const dispatch = useDispatch();
     const [minValue, setMinValue] = useState<number>(0);
     const [maxValue, setMaxValue] = useState<number>(0);
-    const products = useSelector((state: any) => state.productsReducer.products);
-    const minPrice = useSelector((state: any) => state.productsReducer.productsMinPrice);
-    const maxPrice = useSelector((state: any) => state.productsReducer.productsMaxPrice);
+    const products = useTypedSelector(state => state.productsReducer.products);
+    const minPrice = useTypedSelector(state => state.productsReducer.productsMinPrice);
+    const maxPrice = useTypedSelector(state => state.productsReducer.productsMaxPrice);
 
     const brands: {id: number, title: string}[] = [
         {id: 1, title: 'Nike'},
