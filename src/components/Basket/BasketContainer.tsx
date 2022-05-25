@@ -1,13 +1,12 @@
 import Image from 'next/image'
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { Minus } from '../../../public/images/Basket/minus'
 import { Plus } from '../../../public/images/Basket/plus'
-import { removeBasket } from '../../store/reducers/productsReducer'
+import { useActions } from '../../hooks/useActions'
 import { IProductBasket } from '../../types/types'
 
 const BasketContainer: React.FC<IProductBasket> = (props: IProductBasket) => {
-    const dispatch = useDispatch();
+    const { removeBasket } = useActions();
     
     return(
         <BasketProductsContainer>
@@ -32,7 +31,7 @@ const BasketContainer: React.FC<IProductBasket> = (props: IProductBasket) => {
                 <BasketContainerPrice>
                     <p>{(props.price*props.count).toFixed(2)}$</p>
                 </BasketContainerPrice>
-                <ModalCross onClick={() => dispatch(removeBasket(props.id))}>
+                <ModalCross onClick={() => removeBasket(props.id)}>
                             <span></span>
                         </ModalCross>
             </BasketContainerContent>

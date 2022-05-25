@@ -1,16 +1,14 @@
 import styled from 'styled-components'
 import Image from 'next/image'
 import { IProduct } from '../../types/types'
-import { useDispatch, useSelector } from 'react-redux'
-import { showModalProduct } from '../../store/reducers/modalReducer'
-import { changeId } from '../../store/reducers/productsReducer'
+import { useActions } from '../../hooks/useActions'
 
 const HomePageContainer: React.FC<IProduct> = (props: IProduct) => {
-    const dispatch = useDispatch();
+    const { changeId, showModalProduct } = useActions();
 
     const changeModal = (e: Event) => {
-        dispatch(changeId(props.id));
-        dispatch(showModalProduct());
+        changeId(props.id);
+        showModalProduct();
         e.stopPropagation();
        
     }

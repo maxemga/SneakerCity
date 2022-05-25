@@ -8,22 +8,17 @@ import HomePageContainer from './HomePageContainer'
 
 
 const HomeContainers: React.FC<IHomeContainers>= (props) => {
-    const currentCategory = useTypedSelector(state => state.productsReducer.currentCategory);
-    const minCurrentPrice = useTypedSelector(state => state.productsReducer.productsCurrentMinPrice);
-    const maxCurrentPrice = useTypedSelector(state => state.productsReducer.productsCurrentMaxPrice);
-
-
-
+    const { currentCategory, productsCurrentMinPrice, productsCurrentMaxPrice} = useTypedSelector(state => state.productsReducer)
 
     return(
         <>
         <HomeProductsTitle>The new arrivals</HomeProductsTitle>
         <HomeProductsContainers>
     
-            {currentCategory == 'all' ? props.products && props.products.filter((element: IProduct) => element.price >= minCurrentPrice && element.price <= maxCurrentPrice).map((element: IProduct) => {
+            {currentCategory == 'all' ? props.products && props.products.filter((element: IProduct) => element.price >= productsCurrentMinPrice && element.price <= productsCurrentMaxPrice).map((element: IProduct) => {
                 return <HomePageContainer key={element.id} {...element}/>
             }):
-            props.products && props.products.filter((element: IProduct) => element.category == currentCategory && element.price >= minCurrentPrice && element.price <= maxCurrentPrice).map((element: IProduct) => {
+            props.products && props.products.filter((element: IProduct) => element.category == currentCategory && element.price >= productsCurrentMinPrice && element.price <= productsCurrentMaxPrice).map((element: IProduct) => {
                 return <HomePageContainer key={element.id} {...element}/>
             })
             }

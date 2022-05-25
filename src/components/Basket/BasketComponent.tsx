@@ -1,27 +1,27 @@
-import { useDispatch, useSelector } from 'react-redux'
+
 import styled from 'styled-components'
-import { removeBaskets } from '../../store/reducers/productsReducer';
 import BasketContainers from './BasketContainers'
 import { ToastContainer, toast } from 'react-toastify';
-import { hideModals } from '../../store/reducers/modalReducer';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalBasket from '../Modal/ModalBasket';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useActions } from '../../hooks/useActions';
 
 
 const BasketComponent: React.FC = () => {
-    const dispatch = useDispatch();
-    const productsBasket = useSelector((state: any) => state.productsReducer.productsBasket);
-    const modal = useSelector((state: any) => state.modalReducer);
+    const {removeBaskets, hideModals} = useActions();
+    const productsBasket = useTypedSelector(state => state.productsReducer.productsBasket);
+    const modal = useTypedSelector(state => state.modalReducer);
     
 
     const clearBasket = () => {
         productsBasket.length == 0 ? toast.error('Basket is empty') : toast.success('The order has been placed');
-        dispatch(removeBaskets());       
+        removeBaskets()   
     }
     
     return(
     <>
-        <BasketBlock onClick={() => dispatch(hideModals())}>
+        <BasketBlock onClick={() => hideModals()}>
             <Wrapper>
                 <BasketContent>
                     <BasketProducts>

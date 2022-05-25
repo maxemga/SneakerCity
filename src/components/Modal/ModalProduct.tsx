@@ -1,17 +1,15 @@
 import styled from 'styled-components'
 import Image from 'next/image'
 import { ISizes } from '../../types/types'
-import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { Like } from '../../../public/images/Modal/modalIcon'
 import { Minus } from '../../../public/images/Modal/minus'
 import { Plus } from '../../../public/images/Modal/plus'
 import Row from '../../../public/images/Modal/modalRow'
-import { hideModalProduct } from '../../store/reducers/modalReducer'
-import { addProductsBasket } from '../../store/reducers/productsReducer'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { useActions } from '../../hooks/useActions'
 
 
 const ModalProduct: React.FC= () => {
@@ -20,7 +18,7 @@ const ModalProduct: React.FC= () => {
     const [isDiscriptOpen, setIsDiscriptOpen] = useState<boolean>(true);
     const products = useTypedSelector(state => state.productsReducer.products);
     const position = useTypedSelector(state => state.productsReducer.currentPosition);
-    const dispatch = useDispatch();
+    const { addProductsBasket, hideModalProduct } = useActions();
 
     const sizes: ISizes[] = [
         {id: 1, title: 32},
@@ -37,7 +35,7 @@ const ModalProduct: React.FC= () => {
     const fun = () => {
         toast.success('Product added');
         
-        dispatch(addProductsBasket({position: position, count: count}))
+        addProductsBasket({position: position, count: count});
         setCount(1);
         
     }
@@ -49,7 +47,7 @@ const ModalProduct: React.FC= () => {
             <ModalContent>
                 <ModalImage>
                     <ModalImageTitle>
-                        <ModalCross onClick={() => dispatch(hideModalProduct())}>
+                        <ModalCross onClick={() => hideModalProduct()}>
                             <span></span>
                         </ModalCross>
                         <h2>{products[position].title}</h2>

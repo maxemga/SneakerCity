@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components'
 import Row from '../../../public/images/Modal/modalRow';
-import { hideModalMenu } from '../../store/reducers/modalReducer';
-import { changeCategory } from '../../store/reducers/productsReducer';
+import { useActions } from '../../hooks/useActions';
 import { INavigation, ISizes } from '../../types/types';
 
 const ModalMenu: React.FC = () => {
@@ -35,10 +33,10 @@ const ModalMenu: React.FC = () => {
         {id: 6, title: 37}
     ]
     const [isDiscriptOpen, setIsDiscriptOpen] = useState<boolean>(true);
-    const dispatch = useDispatch();
+    const { hideModalMenu, changeCategory } = useActions();
 
     const change = (category: string) => {
-        dispatch(changeCategory(category));
+        changeCategory(category);
     }
 
 
@@ -46,7 +44,7 @@ const ModalMenu: React.FC = () => {
     return(
         <MenuModal>
             <MenuContent>
-                <HeaderCross onClick={() => dispatch(hideModalMenu())}>
+                <HeaderCross onClick={() => hideModalMenu()}>
                     <span></span>
                 </HeaderCross>
                 <HeaderContentIcons>

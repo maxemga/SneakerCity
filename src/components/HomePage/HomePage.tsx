@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components'
+import { useActions } from '../../hooks/useActions';
 import { useHttp } from '../../hooks/useHttp'
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import {  hideModals } from '../../store/reducers/modalReducer';
 import FooterComponent from '../Footer/FooterComponents';
 import ModalMenu from '../Modal/ModalMenu';
 import ModalProduct from '../Modal/ModalProduct';
@@ -13,7 +12,7 @@ import HomeFilter from './HomeFilter';
 
 
 const HomePage: React.FC = () => {
-    const dispatch = useDispatch();
+    const { hideModals } = useActions();
     const modal = useTypedSelector(state => state.modalReducer);
     const products = useTypedSelector(state=> state.productsReducer.products);
     const { request, isLoading } = useHttp();
@@ -25,7 +24,7 @@ const HomePage: React.FC = () => {
 
     return(
         <>
-        <HomeBlock onClick={() => dispatch(hideModals())}>
+        <HomeBlock onClick={() => hideModals()}>
             <Wrapper>
                <HomeContent>
                     <HomeFilterBlock>

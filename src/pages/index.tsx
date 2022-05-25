@@ -1,13 +1,8 @@
 import type { NextPage } from 'next'
 import HomePage from './../components/HomePage/HomePage'
 import { store } from '../store'
-import { Provider, useDispatch } from 'react-redux'
+import { Provider } from 'react-redux'
 import Header from '../components/Header/Header'
-
-
-
-
-
 
 
 const Home: NextPage = () => {

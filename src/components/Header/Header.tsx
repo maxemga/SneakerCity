@@ -3,26 +3,21 @@ import styled from 'styled-components'
 import Link from "next/link";
 import Image from 'next/image'
 import { INavigation } from "../../types/types";
-import { changeCategory } from "../../store/reducers/productsReducer";
-import { useDispatch } from "react-redux";
-import { hideModals, showModalMenu } from "../../store/reducers/modalReducer";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-
-
-
+import { useActions } from "../../hooks/useActions";
 
 
 
 const Header: NextPage = () => {
-    const dispatch = useDispatch();
+    const { changeCategory, showModalMenu, hideModals } = useActions();
     const productsBasket = useTypedSelector(state => state.productsReducer.productsBasket);
 
     const change = (category: string) => {
-        dispatch(changeCategory(category));
+        changeCategory(category);
     }
 
     const clickBurger = (event: Event) => {
-        dispatch(showModalMenu());
+        showModalMenu();
         event.stopPropagation();
     }
 
@@ -36,7 +31,7 @@ const Header: NextPage = () => {
     ]
 
     return(
-        <HeaderBlock onClick={() => dispatch(hideModals())}>
+        <HeaderBlock onClick={() => hideModals()}>
             <Wrapper>
                 <HeaderContent>
                     <HeaderContentLogo>
