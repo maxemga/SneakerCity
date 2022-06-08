@@ -4,7 +4,7 @@ export interface INavigation {
     id: number,
     title: string,
     category: string,
-    ref: string
+    ref?: string
 }
 
 export interface IProduct {
@@ -19,7 +19,7 @@ export interface IProduct {
 export interface IProductBasket {
     id: number,
     title: string,
-    price: number,
+    price: string,
     category: string,
     description: string,
     image: string,

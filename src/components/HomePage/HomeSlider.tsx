@@ -20,17 +20,16 @@ import { changeCurrentPrice } from "../../store/reducers/productsReducer";
     const maxValRef = useRef<HTMLInputElement>(null);
     const range = useRef<HTMLDivElement>(null);
     const dispatch = useDispatch();
-    // Convert to percentage
+
     const getPercent = useCallback(
       (value: number) => Math.round(((value - min) / (max - min)) * 100),
       [min, max]
     );
   
-    // Set width of the range to decrease from the left side
     useEffect(() => {
       if (maxValRef.current) {
         const minPercent = getPercent(minVal);
-        const maxPercent = getPercent(+maxValRef.current.value); // Precede with '+' to convert the value from type string to type number
+        const maxPercent = getPercent(+maxValRef.current.value); 
   
         if (range.current) {
           range.current.style.left = `${minPercent}%`;

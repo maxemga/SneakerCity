@@ -72,7 +72,7 @@ const ModalMenu: React.FC = () => {
                 {isDiscriptOpen ? <HeaderContentNav>
                     
                     {navigation.map((element) => {
-                        return <p key={Math.random()} onClick={() => change(element.category)} key={element.id}>{element.title}</p>
+                        return <p key={Math.random()} onClick={() => change(element.category)}>{element.title}</p>
                     })}
                 </HeaderContentNav> : null}
                 

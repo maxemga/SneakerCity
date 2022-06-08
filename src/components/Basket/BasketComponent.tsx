@@ -32,14 +32,14 @@ const BasketComponent: React.FC = () => {
                         <h2>Order summary</h2>
                         <BasketCalcTotal>
                             <h3>Sub total</h3>
-                            <p>{productsBasket.length == 0 ? '00.00' : productsBasket.reduce((value1: number, {price, count}: {price: number, count: number}) => value1 + price*count, 0)}$</p>
+                            <p>{productsBasket.length == 0 ? '00.00' : productsBasket.reduce((value1: number, {price, count}: {price: string, count: number}) => value1 + Number(price)*count, 0)}$</p>
                         </BasketCalcTotal>
                         <BasketCalcDelivery>
                             <h3>Delivery fee</h3>
                             <p>0$</p>
                         </BasketCalcDelivery>
                         <BasketCalcResult>
-                            <p>{productsBasket.length == 0 ? '00.00' : productsBasket.reduce((value1: number, {price, count}: {price: number, count: number}) => value1 + price*count, 0)}$</p>
+                            <p>{productsBasket.length == 0 ? '00.00' : productsBasket.reduce((value1: number, {price, count}: {price: string, count: number}) => value1 + Number(price)*count, 0)}$</p>
                         </BasketCalcResult>
                         <BasketCalcButton>
                             <button onClick={() => clearBasket()}>Proceed to checkout</button>

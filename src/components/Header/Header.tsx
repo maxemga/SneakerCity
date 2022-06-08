@@ -41,7 +41,7 @@ const Header: NextPage = () => {
                     </HeaderContentLogo>
                     <HeaderContentNav>
                         {navigation.map((element) => {
-                            return <Link href={element.ref} key={element.id}><p onClick={() => change(element.category)}>{element.title}</p></Link>
+                            return <Link href={element.ref || '/'} key={element.id}><p onClick={() => change(element.category)}>{element.title}</p></Link>
                         })}
                     </HeaderContentNav>
                     <HeaderContentIcons>
@@ -63,7 +63,7 @@ const Header: NextPage = () => {
                             </Link>
                         </HeaderContentIcon>
                     </HeaderContentIcons>
-                    <HeaderContentBurger onClick={(event: Event) => clickBurger(event)}>
+                    <HeaderContentBurger onClick={(event: any) => clickBurger(event)}>
                         <span></span>
                     </HeaderContentBurger>
                 </HeaderContent>

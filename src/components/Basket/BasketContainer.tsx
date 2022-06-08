@@ -29,7 +29,7 @@ const BasketContainer: React.FC<IProductBasket> = (props: IProductBasket) => {
 
                 </Flex>
                 <BasketContainerPrice>
-                    <p>{(props.price*props.count).toFixed(2)}$</p>
+                    <p>{(Number(props.price)*props.count).toFixed(2)}$</p>
                 </BasketContainerPrice>
                 <ModalCross onClick={() => removeBasket(props.id)}>
                             <span></span>

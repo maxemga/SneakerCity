@@ -37,8 +37,10 @@ const productsReducer = createSlice({
             if (element.length >= 1) {
                 state.productsBasket[positionElement].count += action.payload.count 
             }
+            
             else {
-                state.productsBasket.push(Object.assign(state.products[action.payload.position], {count: action.payload.count}))
+                let newObj = Object.assign(state.products[action.payload.position], {count: action.payload.count});
+                state.productsBasket.push(newObj)
             }
          
         },

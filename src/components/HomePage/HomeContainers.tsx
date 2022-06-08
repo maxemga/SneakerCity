@@ -15,10 +15,10 @@ const HomeContainers: React.FC<IHomeContainers>= (props) => {
         <HomeProductsTitle>The new arrivals</HomeProductsTitle>
         <HomeProductsContainers>
     
-            {currentCategory == 'all' ? props.products && props.products.filter((element: IProduct) => element.price >= productsCurrentMinPrice && element.price <= productsCurrentMaxPrice).map((element: IProduct) => {
+            {currentCategory == 'all' ? props.products && props.products.filter((element: IProduct) => Number(element.price) >= productsCurrentMinPrice && Number(element.price) <= productsCurrentMaxPrice).map((element: IProduct) => {
                 return <HomePageContainer key={element.id} {...element}/>
             }):
-            props.products && props.products.filter((element: IProduct) => element.category == currentCategory && element.price >= productsCurrentMinPrice && element.price <= productsCurrentMaxPrice).map((element: IProduct) => {
+            props.products && props.products.filter((element: IProduct) => element.category == currentCategory && Number(element.price) >= productsCurrentMinPrice && Number(element.price) <= productsCurrentMaxPrice).map((element: IProduct) => {
                 return <HomePageContainer key={element.id} {...element}/>
             })
             }

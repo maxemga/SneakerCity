@@ -15,7 +15,7 @@ const HomePageContainer: React.FC<IProduct> = (props: IProduct) => {
 
     return(
         <>
-        <HomeProductsContainer onClick={(event: Event) => changeModal(event)}>
+        <HomeProductsContainer onClick={(event: any) => changeModal(event)}>
             <HomeProductsContainerImage>
                 <Image
                     src={props.image}

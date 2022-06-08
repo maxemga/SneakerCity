@@ -1,7 +1,7 @@
 
 import styled from 'styled-components'
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { IProduct } from '../../types/types';
+import { IProduct, IProductBasket } from '../../types/types';
 import BasketContainer from './BasketContainer';
 
 const BasketContainers: React.FC = () => {
@@ -9,13 +9,15 @@ const BasketContainers: React.FC = () => {
 
     return(
         <BasketProductsContainers>
-            {productsBasket.length == 0 ? <p>The basket is empty</p> : productsBasket.map((element: IProduct[]) => {
-                return <BasketContainer {...element}/>
+            {productsBasket.length == 0 ? <p>The basket is empty</p> : productsBasket.map((element: IProductBasket) => {
+                return <BasketContainer key={element.id} {...element}/>
             })}
            
         </BasketProductsContainers>
     )
 }
+
+// IProduct[]
 
 const BasketProductsContainers = styled.div`
     width: 100%;
